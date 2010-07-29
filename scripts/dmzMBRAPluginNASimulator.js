@@ -1045,15 +1045,15 @@ dmz.object.create.observe(self, function (handle, objType, varity) {
    if (objType) {
       if (objType.isOfType(NodeType) || objType.isOfType(NodeLinkType)) {
          objects[handle] = handle;
-//         consequenceOld = dmz.object.scalar(handle, ConsequenceHandle);
-//         preventionCostOld = dmz.object.scalar(handle, PreventionCostHandle);
-//         unitState = dmz.object.state(handle, MoneyUnitHandle);
-//         if (unitState) {
-//            stateMultiplier = get_money_unit_from_state(unitState);
-//         }
-//         dmz.object.scalar(handle, ConsequenceHandle, consequenceOld * stateMultiplier);
-//         dmz.object.scalar(handle, PreventionCostHandle,
-//                           preventionCostOld * stateMultiplier);
+         consequenceOld = dmz.object.scalar(handle, ConsequenceHandle);
+         preventionCostOld = dmz.object.scalar(handle, PreventionCostHandle);
+         unitState = dmz.object.state(handle, MoneyUnitHandle);
+         if (unitState) {
+            stateMultiplier = get_money_unit_from_state(unitState);
+         }
+         dmz.object.scalar(handle, ConsequenceHandle, consequenceOld * stateMultiplier);
+         dmz.object.scalar(handle, PreventionCostHandle,
+                           preventionCostOld * stateMultiplier);
          if (visible && objects[handle]) {
             do_rank();
          }
@@ -1197,25 +1197,25 @@ var get_money_unit_from_state = function (state) {
 
 dmz.object.state.observe(self, MoneyUnitHandle,
 function (object, attr, newState, prevState) {
-//   var prevMultiplier = 1
-//     , newMultiplier = 1
-//     , currentConsequence
-//     , currentPreventionCost
-//     ;
-//   if (object && objects[object]) {
-//      if (prevState != null) {
-//         prevMultiplier = get_money_unit_from_state(prevState);
-//      }
-//      if (newState) {
-//         newMultiplier = get_money_unit_from_state(newState);
-//      }
-//      currentConsequence = dmz.object.scalar(object, ConsequenceHandle);
-//      currentPreventionCost = dmz.object.scalar(object, PreventionCostHandle);
+   var prevMultiplier = 1
+     , newMultiplier = 1
+     , currentConsequence
+     , currentPreventionCost
+     ;
+   if (object && objects[object]) {
+      if (prevState != null) {
+         prevMultiplier = get_money_unit_from_state(prevState);
+      }
+      if (newState) {
+         newMultiplier = get_money_unit_from_state(newState);
+      }
+      currentConsequence = dmz.object.scalar(object, ConsequenceHandle);
+      currentPreventionCost = dmz.object.scalar(object, PreventionCostHandle);
 
-//      dmz.object.scalar(object, ConsequenceHandle,
-//                        currentConsequence * prevMultiplier / newMultiplier);
-//      dmz.object.scalar(object, PreventionCostHandle,
-//                        currentPreventionCost * prevMultiplier / newMultiplier);
+      dmz.object.scalar(object, ConsequenceHandle,
+                        currentConsequence * prevMultiplier / newMultiplier);
+      dmz.object.scalar(object, PreventionCostHandle,
+                        currentPreventionCost * prevMultiplier / newMultiplier);
 
-//   }
+   }
 });

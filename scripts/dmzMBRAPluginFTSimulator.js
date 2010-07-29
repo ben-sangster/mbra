@@ -368,15 +368,15 @@ dmz.object.create.observe(self, function (objHandle, objType) {
      ;
    if (objType.isOfType(ThreatType)) {
       objects[objHandle] = new_object(objHandle);
-//      consequenceOld = dmz.object.scalar(objHandle, ConsequenceHandle);
-//      eliminationOld = dmz.object.scalar(objHandle, EliminationHandle);
-//      unitState = dmz.object.state(objHandle, MoneyUnitHandle);
-//      if (unitState) {
-//         stateMultiplier = get_money_unit_from_state(unitState);
-//      }
-//      dmz.object.scalar(objHandle, ConsequenceHandle, consequenceOld * stateMultiplier);
-//      dmz.object.scalar(objHandle, EliminationHandle,
-//                        eliminationOld * stateMultiplier);
+      consequenceOld = dmz.object.scalar(objHandle, ConsequenceHandle);
+      eliminationOld = dmz.object.scalar(objHandle, EliminationHandle);
+      unitState = dmz.object.state(objHandle, MoneyUnitHandle);
+      if (unitState) {
+         stateMultiplier = get_money_unit_from_state(unitState);
+      }
+      dmz.object.scalar(objHandle, ConsequenceHandle, consequenceOld * stateMultiplier);
+      dmz.object.scalar(objHandle, EliminationHandle,
+                        eliminationOld * stateMultiplier);
 		reset = true;
    } else if (objType.isOfType(ComponentType)) {
       reset = true;
@@ -690,25 +690,25 @@ function stop_plugin() {
 
 dmz.object.state.observe(self, MoneyUnitHandle,
 function (object, attr, newState, prevState) {
-//   var prevMultiplier = 1
-//     , newMultiplier = 1
-//     , currentConsequence
-//     , currentEliminationCost
-//     ;
-//   if (object && objects[object]) {
-//      if (prevState != null) {
-//         prevMultiplier = get_money_unit_from_state(prevState);
-//      }
-//      if (newState) {
-//         newMultiplier = get_money_unit_from_state(newState);
-//      }
-//      currentConsequence = dmz.object.scalar(object, ConsequenceHandle);
-//      currentEliminationCost = dmz.object.scalar(object, EliminationHandle);
+   var prevMultiplier = 1
+     , newMultiplier = 1
+     , currentConsequence
+     , currentEliminationCost
+     ;
+   if (object && objects[object]) {
+      if (prevState != null) {
+         prevMultiplier = get_money_unit_from_state(prevState);
+      }
+      if (newState) {
+         newMultiplier = get_money_unit_from_state(newState);
+      }
+      currentConsequence = dmz.object.scalar(object, ConsequenceHandle);
+      currentEliminationCost = dmz.object.scalar(object, EliminationHandle);
 
-//      dmz.object.scalar(object, ConsequenceHandle,
-//                        currentConsequence * prevMultiplier / newMultiplier);
-//      dmz.object.scalar(object, EliminationHandle,
-//                        currentEliminationCost * prevMultiplier / newMultiplier);
+      dmz.object.scalar(object, ConsequenceHandle,
+                        currentConsequence * prevMultiplier / newMultiplier);
+      dmz.object.scalar(object, EliminationHandle,
+                        currentEliminationCost * prevMultiplier / newMultiplier);
 
-//   }
+   }
 });
