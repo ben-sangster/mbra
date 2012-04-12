@@ -24,14 +24,14 @@ namespace dmz {
          public ObjectObserverUtil {
 
       Q_OBJECT
-      
+
       public:
          MBRAPluginNACalculate (const PluginInfo &Info, Config &local);
          ~MBRAPluginNACalculate ();
 
          // QtWidget Interface
          virtual QWidget *get_qt_widget ();
-         
+
          // Plugin Interface
          virtual void update_plugin_state (
             const PluginStateEnum State,
@@ -61,7 +61,7 @@ namespace dmz {
          void _slot_weight_by_clicked (int id);
          void on_objectiveComboBox_currentIndexChanged (int id);
          void on_unfixedBudgetBox_currentIndexChanged (int id);
-         
+
       protected:
          void _init (Config &local);
 
@@ -77,6 +77,7 @@ namespace dmz {
          QList<Handle> _objectiveFunctionHandles;
          QList<Handle> _unfixedBudgetHandles;
          Boolean _ignoreUpdates;
+         Handle _weightAttrHandle;
 
       private:
          MBRAPluginNACalculate ();

@@ -483,9 +483,9 @@
             attribute="NA_Node_Attack_Allocation"
          />
          <property type="state" name="Flow" attribute="NA_Link_Flow">
-            <state label="both" name="NA_Flow_Forward|NA_Flow_Reverse"/>
             <state label="forward" name="NA_Flow_Forward" default="true"/>
             <state label="reverse" name="NA_Flow_Reverse"/>
+            <state label="both" name="NA_Flow_Forward|NA_Flow_Reverse"/>
          </property>
          <property
             type="text"
@@ -737,12 +737,17 @@
       </caclulateButton>
    </dmzMBRAPluginCalculate>
    <dmzMBRAPluginNACalculate>
+      <!--
+         Note: because of hacks in dmzMBRAPluginNACalculate.cpp @63 && @64, do
+         not change order. Degrees weight by is activated and risk is used as
+         default function
+      -->
       <weight-by text="Degrees" attribute="NA_Weight_Degrees" checked="true"/>
       <weight-by text="Betweenness" attribute="NA_Weight_Betweenness"/>
       <weight-by text="Height" attribute="NA_Weight_Height"/>
       <weight-by text="Contagiousness" attribute="NA_Weight_Contagiousness"/>
       <objective-function text="None" attribute="NA_Objective_None"/>
-      <objective-function text="Risk" attribute="NA_Objective_Risk" checked="true"/>
+      <objective-function text="Risk" attribute="NA_Objective_Risk"/>
       <objective-function text="Threat x Vulnerability" attribute="NA_Objective_TxV"/>
       <objective-function text="Threat" attribute="NA_Objective_Threat"/>
       <objective-function text="Vulnerability" attribute="NA_Objective_Vulnerability"/>

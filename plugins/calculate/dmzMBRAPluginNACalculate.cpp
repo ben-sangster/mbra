@@ -27,10 +27,11 @@ dmz::MBRAPluginNACalculate::MBRAPluginNACalculate (
       _weightByGroup (),
       _objectiveFunctionHandles (),
       _unfixedBudgetHandles (),
-      _ignoreUpdates (False) {
+      _ignoreUpdates (False),
+      _weightAttrHandle (0) {
 
    _ui.setupUi (this);
-   
+
    _init (local);
 }
 
@@ -56,9 +57,16 @@ dmz::MBRAPluginNACalculate::update_plugin_state (
       ObjectModule *objMod = get_object_module ();
 
       if (objMod && !_simulatorHandle) {
-         
+
          _simulatorHandle = objMod->create_object (_simulatorType, ObjectLocal);
          objMod->activate_object (_simulatorHandle);
+         // Hack because no one will touch this code again
+         QAbstractButton *button = _weightByGroup.button (_weightAttrHandle);
+         _log.warn << "Button: " << button << endl;
+         if (button) { button->click (); }
+//         _slot_weight_by_clicked (0); // activate Degrees checkbox
+
+         _ui.objectiveComboBox->setCurrentIndex(1); // Set objective to "Risk"
       }
    }
    else if (State == PluginStateStart) {
@@ -114,7 +122,7 @@ dmz::MBRAPluginNACalculate::update_object_flag (
       const Boolean *PreviousValue) {
 
    if (!_ignoreUpdates) {
-      
+
       if (_weightByHandles.contains (AttributeHandle)) {
 
          QAbstractButton *button =
@@ -140,11 +148,11 @@ dmz::MBRAPluginNACalculate::_slot_weight_by_clicked (int id) {
    if (objMod && _simulatorHandle) {
 
       const Handle AttrHandle (id);
-      
+
       QAbstractButton *button = _weightByGroup.button (id);
-      
+
       if (button) {
-         
+
          Boolean value = button->isChecked ();
          _ignoreUpdates = True;
          objMod->store_flag (_simulatorHandle, AttrHandle, value);
@@ -160,14 +168,14 @@ dmz::MBRAPluginNACalculate::on_objectiveComboBox_currentIndexChanged (int id) {
    ObjectModule *objMod = get_object_module ();
 
    if (objMod && _simulatorHandle) {
-      
+
       const Handle ActiveHandle (_ui.objectiveComboBox->itemData (id).toLongLong ());
 
       foreach (Handle attrHandle, _objectiveFunctionHandles) {
-         
+
          Boolean value (False);
          if (ActiveHandle == attrHandle) { value = True; }
-         
+
          _ignoreUpdates = True;
          objMod->store_flag (_simulatorHandle, attrHandle, value);
          _ignoreUpdates = False;
@@ -208,63 +216,65 @@ dmz::MBRAPluginNACalculate::_init (Config &local) {
    qframe_config_read ("frame", local, this);
 
    QVBoxLayout *layout = new QVBoxLayout;
-   
+
    _weightByGroup.setExclusive (False);
-   
+
    connect (
       &_weightByGroup, SIGNAL (buttonClicked (int)),
       this, SLOT (_slot_weight_by_clicked (int)));
-      
+
    QVBoxLayout *vbox = new QVBoxLayout;
-   
+
    Config itemList;
-   
+
    if (local.lookup_all_config ("weight-by", itemList)) {
-      
+
       ConfigIterator it;
       Config cd;
-      
+
       while (itemList.get_next_config (it, cd)) {
-         
+
          const String Text (config_to_string ("text", cd));
-         
+
          const String AttrName (config_to_string ("attribute", cd));
-         
+
          const Boolean Checked (config_to_boolean ("checked", cd));
-         
+
          if (Text && AttrName) {
-            
+
             const Handle AttrHandle (
                activate_object_attribute (AttrName, ObjectFlagMask));
-            
+
             QCheckBox *checkBox = new QCheckBox (Text.get_buffer ());
             checkBox->setObjectName (Text.get_buffer ());
-            checkBox->setChecked (Checked);
-            
+//            checkBox->setChecked (Checked);
+            checkBox->setChecked (False);
+
+            if (Text == "Degrees") { _weightAttrHandle = AttrHandle; }
+
             vbox->addWidget (checkBox);
             _weightByGroup.addButton (checkBox, (qlonglong)AttrHandle);
-            
+
             _weightByHandles.add (AttrHandle);
          }
       }
    }
-   
+
    _ui.weightGroupBox->setLayout (vbox);
-      
 
    if (local.lookup_all_config ("objective-function", itemList)) {
-      
+
       ConfigIterator it;
       Config cd;
-      
+
       while (itemList.get_next_config (it, cd)) {
-         
+
          const String Text (config_to_string ("text", cd));
-         
+
          const String AttrName (config_to_string ("attribute", cd));
-         
+
          if (Text && AttrName) {
-            
+
             const Handle AttrHandle (
                activate_object_attribute (AttrName, ObjectFlagMask));
 
@@ -273,7 +283,7 @@ dmz::MBRAPluginNACalculate::_init (Config &local) {
          }
       }
    }
-   
+
    if (local.lookup_all_config ("objective-variable", itemList)) {
 
       ConfigIterator it;
