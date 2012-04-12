@@ -62,7 +62,6 @@ dmz::MBRAPluginNACalculate::update_plugin_state (
          objMod->activate_object (_simulatorHandle);
          // Hack because no one will touch this code again
          QAbstractButton *button = _weightByGroup.button (_weightAttrHandle);
-         _log.warn << "Button: " << button << endl;
          if (button) { button->click (); }
 //         _slot_weight_by_clicked (0); // activate Degrees checkbox
 
