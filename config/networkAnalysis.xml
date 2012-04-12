@@ -3,28 +3,28 @@
    <plugin-list>
       <plugin name="dmzQtModuleMapBasic" unique="NAMap" unload="false" delete="false"/>
       <plugin name="dmzQtPluginRenderPickMap" unique="NARenderPickMap">
-	      <additional-scope name="na"/>
+         <additional-scope name="na"/>
       </plugin>
       <plugin name="dmzQtPluginCanvasMap" unique="NACanvasMap">
-	      <additional-scope name="na"/>
+         <additional-scope name="na"/>
       </plugin>
       <plugin name="dmzQtModuleCanvasBasic" unique="NACanvas"/>
       <plugin name="dmzQtPluginCanvasZoomPanMap" unique="NACanvasMapZoom">
-	      <additional-scope name="na"/>
+         <additional-scope name="na"/>
       </plugin>
       <plugin name="dmzQtPluginCanvasObject" unique="NACanvasObject"/>
       <plugin name="dmzQtPluginCanvasLink" unique="NACanvasLink"/>
       <plugin name="dmzQtPluginCanvasLayer" unique="NACanvasLayer">
-	      <additional-scope name="na"/>
+         <additional-scope name="na"/>
       </plugin>
       <plugin name="dmzQtPluginRenderPickCanvas" unique="NARenderPickCanvas">
-	      <additional-scope name="na"/>
+         <additional-scope name="na"/>
       </plugin>
       <plugin name="dmzQtPluginMapArchive" unique="NAMapArchive">
-	      <additional-scope name="na"/>
+         <additional-scope name="na"/>
       </plugin>
       <plugin name="dmzQtPluginMapProperties">
-	      <additional-scope name="na"/>
+         <additional-scope name="na"/>
       </plugin>
       <plugin name="dmzQtPluginButtonToChannel" scope="na-edit-tool"/>
       <plugin
@@ -273,7 +273,7 @@
             type="scalar"
             name="Threat"
             attribute="NA_Node_Threat"
-            default="1.0"
+            default="0.5"
             scale="100"
             min="0"
             max="100"
@@ -295,6 +295,7 @@
             type="scalar"
             name="Consequence $$(UnitsMessage)"
             attribute="NA_Node_Consequence"
+            default="1000"
          />
          <property
             type="scalar"
@@ -318,7 +319,7 @@
             name="Risk Initial $$(UnitsMessage)"
             attribute="NA_Node_Risk_Initial"
             decimals="2"
-         />   
+         />
          <property
             type="scalar-label"
             name="Risk Reduced $$(UnitsMessage)"
@@ -351,6 +352,8 @@
             name="Vulnerability Reduced"
             attribute="NA_Node_Vulnerability_Reduced"
             scale="100"
+            min="0"
+            max="100"
             decimals="2"
             suffix="%"
          />
@@ -421,9 +424,9 @@
             type="scalar"
             name="Threat"
             attribute="NA_Node_Threat"
-            default="1.0"
+            default="0.5"
             scale="100"
-            decimals="0"
+            decimals="2"
             min="0"
             max="100"
             step="5"
@@ -435,7 +438,7 @@
             attribute="NA_Node_Vulnerability"
             default="1.0"
             scale="100"
-            decimals="0"
+            decimals="2"
             min="0"
             max="100"
             step="5"
@@ -445,6 +448,7 @@
             type="scalar"
             name="Consequence $$(UnitsMessage)"
             attribute="NA_Node_Consequence"
+            default="1000"
          />
          <property
             type="scalar"
@@ -462,7 +466,7 @@
             name="Attack Cost $$(UnitsMessage)"
             attribute="NA_Node_Attack_Cost"
          />
--->         
+-->
          <property
             type="scalar-label"
             name="Prevention Allocation $$(UnitsMessage)"
@@ -477,10 +481,10 @@
             type="scalar-label"
             name="Attack Allocation $$(UnitsMessage)"
             attribute="NA_Node_Attack_Allocation"
-         />         
+         />
          <property type="state" name="Flow" attribute="NA_Link_Flow">
-            <state label="both" name="NA_Flow_Forward|NA_Flow_Reverse" default="true"/>
-            <state label="forward" name="NA_Flow_Forward"/>
+            <state label="both" name="NA_Flow_Forward|NA_Flow_Reverse"/>
+            <state label="forward" name="NA_Flow_Forward" default="true"/>
             <state label="reverse" name="NA_Flow_Reverse"/>
          </property>
          <property
@@ -509,7 +513,7 @@
             type="scalar-label"
             name="Attack Allocation $$(UnitsMessage)"
             attribute="NA_Node_Attack_Allocation"
-         />   
+         />
          <property
             type="scalar-label"
             name="Risk Reduced $$(UnitsMessage)"
@@ -521,7 +525,7 @@
             name="Vulnerability Reduced"
             attribute="NA_Node_Vulnerability_Reduced"
             scale="100"
-            decimals="0"
+            decimals="2"
             suffix="%"
          />
          <property
@@ -629,53 +633,53 @@
    <dmzQtPluginMapProperties>
       <default-map-adapter-list>
          <current index="1"/>
-         <map-adapter 
-            name="Cloudmade-1" 
-            type="tile" 
-            server="tile.cloudmade.com" 
-            path="/742140f4b12f5326be6b4c4e584c6528/1/256/%1/%2/%3.png" 
-            tileSize="256" 
-            minZoom="0" 
+         <map-adapter
+            name="Cloudmade-1"
+            type="tile"
+            server="tile.cloudmade.com"
+            path="/742140f4b12f5326be6b4c4e584c6528/1/256/%1/%2/%3.png"
+            tileSize="256"
+            minZoom="0"
             maxZoom="17"/>
-         <map-adapter 
-            name="Cloudmade-2" 
-            type="tile" 
-            server="tile.cloudmade.com" 
-            path="/742140f4b12f5326be6b4c4e584c6528/2/256/%1/%2/%3.png" 
-            tileSize="256" 
-            minZoom="0" 
+         <map-adapter
+            name="Cloudmade-2"
+            type="tile"
+            server="tile.cloudmade.com"
+            path="/742140f4b12f5326be6b4c4e584c6528/2/256/%1/%2/%3.png"
+            tileSize="256"
+            minZoom="0"
             maxZoom="17"/>
-         <map-adapter 
-            name="Cloudmade-3" 
-            type="tile" 
-            server="tile.cloudmade.com" 
-            path="/742140f4b12f5326be6b4c4e584c6528/998/256/%1/%2/%3.png" 
-            tileSize="256" 
-            minZoom="0" 
+         <map-adapter
+            name="Cloudmade-3"
+            type="tile"
+            server="tile.cloudmade.com"
+            path="/742140f4b12f5326be6b4c4e584c6528/998/256/%1/%2/%3.png"
+            tileSize="256"
+            minZoom="0"
             maxZoom="17"/>
-         <map-adapter 
-            name="Cloudmade-4" 
-            type="tile" 
-            server="tile.cloudmade.com" 
-            path="/742140f4b12f5326be6b4c4e584c6528/4/256/%1/%2/%3.png" 
-            tileSize="256" 
-            minZoom="0" 
+         <map-adapter
+            name="Cloudmade-4"
+            type="tile"
+            server="tile.cloudmade.com"
+            path="/742140f4b12f5326be6b4c4e584c6528/4/256/%1/%2/%3.png"
+            tileSize="256"
+            minZoom="0"
             maxZoom="17"/>
-         <map-adapter 
-            name="Cloudmade-5" 
-            type="tile" 
-            server="tile.cloudmade.com" 
-            path="/742140f4b12f5326be6b4c4e584c6528/3417/256/%1/%2/%3.png" 
-            tileSize="256" 
-            minZoom="0" 
+         <map-adapter
+            name="Cloudmade-5"
+            type="tile"
+            server="tile.cloudmade.com"
+            path="/742140f4b12f5326be6b4c4e584c6528/3417/256/%1/%2/%3.png"
+            tileSize="256"
+            minZoom="0"
             maxZoom="17"/>
-         <map-adapter 
-            name="OpenStreetMap" 
-            type="tile" 
-            server="tile.openstreetmap.org" 
-            path="/%1/%2/%3.png" 
-            tileSize="256" 
-            minZoom="0" 
+         <map-adapter
+            name="OpenStreetMap"
+            type="tile"
+            server="tile.openstreetmap.org"
+            path="/%1/%2/%3.png"
+            tileSize="256"
+            minZoom="0"
             maxZoom="17"/>
       </default-map-adapter-list>
       <show-map-action
@@ -733,12 +737,12 @@
       </caclulateButton>
    </dmzMBRAPluginCalculate>
    <dmzMBRAPluginNACalculate>
-      <weight-by text="Degrees" attribute="NA_Weight_Degrees"/>
+      <weight-by text="Degrees" attribute="NA_Weight_Degrees" checked="true"/>
       <weight-by text="Betweenness" attribute="NA_Weight_Betweenness"/>
       <weight-by text="Height" attribute="NA_Weight_Height"/>
       <weight-by text="Contagiousness" attribute="NA_Weight_Contagiousness"/>
-      <objective-function text="None" attribute="NA_Objective_None" checked="true"/>
-      <objective-function text="Risk" attribute="NA_Objective_Risk"/>
+      <objective-function text="None" attribute="NA_Objective_None"/>
+      <objective-function text="Risk" attribute="NA_Objective_Risk" checked="true"/>
       <objective-function text="Threat x Vulnerability" attribute="NA_Objective_TxV"/>
       <objective-function text="Threat" attribute="NA_Objective_Threat"/>
       <objective-function text="Vulnerability" attribute="NA_Objective_Vulnerability"/>

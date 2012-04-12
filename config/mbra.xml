@@ -20,9 +20,9 @@
          name="Network Minimum vulnerability at maximum budget"
          message="NAVulnerabilityInfinityMessage"
          default="5"
-         decimals="0"
+         decimals="2"
          scale="100"
-         min="1"
+         min="0.000001"
          max="100"
          step="1"
          suffix="%"/>
@@ -31,9 +31,9 @@
          name="Fault Tree Minimum vulnerability at maximum budget"
          message="FTVulnerabilityInfinityMessage"
          default="5"
-         decimals="0"
+         decimals="2"
          scale="100"
-         min="1"
+         min="0.000001"
          max="100"
          step="1"
          suffix="%"/>
